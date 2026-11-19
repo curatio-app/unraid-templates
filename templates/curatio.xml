@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Curatio</Name>
+  <Repository>ghcr.io/curatio-app/curatio:aio</Repository>
+  <Registry>https://github.com/curatio-app/curatio/pkgs/container/curatio</Registry>
+  <Network>bridge</Network>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/curatio-app/curatio/issues</Support>
+  <Project>https://curatio.tv</Project>
+  <ReadMe>https://github.com/curatio-app/curatio#unraid</ReadMe>
+  <Overview>Curatio picks what to watch from the movies and shows you already have on Plex or Jellyfin. It learns from what you've watched, builds rows like Because You Watched, Unwatched and Short Tonight, says why it picked each title, and plays the file in full quality on Apple TV, iPhone, iPad, Mac, Windows and the web.&#xD;
+&#xD;
+Curatio Server runs next to Plex or Jellyfin; your media never moves. This container has its database built in. Free, private, no account with us. An AI key (Gemini, Claude, OpenAI or a local model) is optional.&#xD;
+&#xD;
+Sign-in uses passkeys, which need HTTPS: put Curatio behind your reverse proxy (SWAG, Nginx Proxy Manager, Cloudflare Tunnel) with a domain, and set Base URL to that https:// address. The admin page works at http://[IP]:8000/admin with the admin password.</Overview>
+  <Category>MediaApp:Video MediaServer:Video</Category>
+  <WebUI>http://[IP]:[PORT:8000]/admin</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/curatio-app/unraid-templates/main/templates/curatio.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/curatio-app/unraid-templates/main/curatio.png</Icon>
+  <ExtraParams>--add-host=host.docker.internal:host-gateway</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>A Plex or Jellyfin server, a free TMDB API key (themoviedb.org/settings/api), and a domain with HTTPS through your reverse proxy for app sign-in.</Requires>
+  <Config Name="Web port" Target="8000" Default="8000" Mode="tcp" Description="Port for the apps, the web player and the admin page. Point your reverse proxy here." Type="Port" Display="always" Required="true" Mask="false">8000</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/curatio" Mode="rw" Description="Database, generated secrets and logs. Back this folder up." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/curatio</Config>
+  <Config Name="Base URL" Target="BASE_URL" Default="" Mode="" Description="The https:// address the apps use, without a trailing slash, e.g. https://curatio.example.com" Type="Variable" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="TMDB API key" Target="TMDB_API_KEY" Default="" Mode="" Description="Free key from themoviedb.org/settings/api (the API Key, not the token)." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="Admin password" Target="MASTER_PASSWORD" Default="" Mode="" Description="Password for the admin page, at least 16 characters." Type="Variable" Display="always" Required="true" Mask="true"></Config>
+  <Config Name="AI provider" Target="TAGGING_PROVIDER" Default="gemini|anthropic|openai|local" Mode="" Description="Optional. Which AI sharpens tags. Without a key, rule-based tags are used. Can also be set in the admin page." Type="Variable" Display="advanced" Required="false" Mask="false">gemini</Config>
+  <Config Name="Gemini API key" Target="GEMINI_API_KEY" Default="" Mode="" Description="Optional. Google AI Studio key." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Anthropic API key" Target="ANTHROPIC_API_KEY" Default="" Mode="" Description="Optional. Claude key from console.anthropic.com." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="OpenAI API key" Target="OPENAI_API_KEY" Default="" Mode="" Description="Optional. Key from platform.openai.com." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="Local model address" Target="LOCAL_BASE_URL" Default="" Mode="" Description="Optional, with AI provider 'local': an OpenAI-compatible address such as http://host.docker.internal:11434/v1 (Ollama)." Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Local model name" Target="LOCAL_MODEL" Default="" Mode="" Description="Optional, with AI provider 'local': the model name, e.g. qwen2.5:14b" Type="Variable" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Monthly AI limit (USD)" Target="LIBRARY_TAGGING_MONTHLY_CAP_USD" Default="5" Mode="" Description="Stop AI tagging for the month at this spend. 0 = no limit." Type="Variable" Display="advanced" Required="false" Mask="false">5</Config>
+  <Config Name="Trusted proxies" Target="TRUSTED_PROXY_COUNT" Default="1" Mode="" Description="How many reverse proxies sit in front of Curatio (1 for SWAG or Nginx Proxy Manager)." Type="Variable" Display="advanced" Required="false" Mask="false">1</Config>
+</Container>

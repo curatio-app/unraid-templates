@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<Maintainer>
+  <Icon>https://raw.githubusercontent.com/curatio-app/unraid-templates/main/curatio.png</Icon>
+  <Profile>Curatio: personal recommendations and a great player for the movies and shows you already have on Plex or Jellyfin. Free and self-hosted.</Profile>
+  <WebPage>https://curatio.tv</WebPage>
+  <GitHub>https://github.com/curatio-app</GitHub>
+</Maintainer>
